@@ -6,11 +6,11 @@
 #    By: graja <graja@student.42wolfsburg.de>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/12 14:06:05 by graja             #+#    #+#              #
-#    Updated: 2022/03/04 18:08:54 by graja            ###   ########.fr        #
+#    Updated: 2022/03/06 12:32:19 by graja            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	ex00
+NAME	=	convert	
 
 SRCS	=	main.cpp
 
