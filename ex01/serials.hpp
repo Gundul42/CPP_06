@@ -6,12 +6,12 @@
 /*   By: graja <graja@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 13:49:47 by graja             #+#    #+#             */
-/*   Updated: 2022/03/06 13:58:29 by graja            ###   ########.fr       */
+/*   Updated: 2022/03/07 17:54:23 by graja            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SERIALS_H
-# define SERIAL_H
+# define SERIALS_H
 
 # include <iostream>
 # include <string>
