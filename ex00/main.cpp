@@ -6,7 +6,7 @@
 /*   By: graja <graja@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 18:09:01 by graja             #+#    #+#             */
-/*   Updated: 2022/03/06 12:25:33 by graja            ###   ########.fr       */
+/*   Updated: 2022/03/08 11:46:44 by graja            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,58 @@
 #include <stdexcept>
 #include <iomanip>
 #include <climits>
-#include <cfloat>
+
+static
+double	ft_makedoub(std::string input)
+{
+	double			d;
+
+	try
+	{
+		d = std::stod(input);
+	}
+	catch (std::invalid_argument &ia)
+	{
+		if (input.length() == 1)
+			d = static_cast<double>(input.front());
+		else
+		{
+			std::cout << "No Conversion possible !" << std::endl;
+			exit (1);
+		}
+	}
+	catch (std::out_of_range &ooa)
+	{
+		std::cout << "Input is out of range of a double" << std::endl;
+		exit (1);
+	}
+	return (d);
+}
+
+static
+bool	ft_makeInt(float f, std::string input)
+{
+	if (f && (f > INT_MAX || f < INT_MIN))
+	{
+		std::cout << "char   : not possible" << std::endl;
+		std::cout << "int    : not possible" << std::endl;
+		return (false);
+	}
+	try
+	{
+		std::stoi(input, 0, 0);
+	}
+	catch (std::invalid_argument &ia)
+	{
+		if (input.length() != 1)
+		{
+			std::cout << "char   : not possible" << std::endl;
+			std::cout << "int    : not possible" << std::endl;
+			return (false);
+		}
+	}
+	return (true);
+}
 
 int main(int argc, char **argv)
 {
@@ -30,59 +81,23 @@ int main(int argc, char **argv)
 	float			f;
 	double			d;
 
-	try
-	{
-		d = std::stod(input);
-	}
-	catch (std::invalid_argument &ia)
-	{
-		if (input.length() == 1)
-		{
-			std::cout << "Input is of type char, casting to double" << std::endl;
-			d = static_cast<double>(input.front());
-		}
-		else
-		{
-			std::cout << "No Conversion possible !" << std::endl;
-			return (1);
-		}
-	}
-	std::cout << std::fixed << std::setprecision(15); 
-	std::cout << "String conversion to double = " << d << std::endl;
-	std::cout << std::setprecision(7); 
+	std::cout << std::fixed << std::setprecision(1);
+	d = ft_makedoub(input);
 	f = static_cast<float>(d);
-	std::cout << "Cast to float = " << f << std::endl;
-	if (f && (f > INT_MAX || f < INT_MIN))
+	if (ft_makeInt(f, input))
 	{
-		std::cout << "value is beyond Int_Min/Max converting to smaller value";
-		std::cout << " is not possible without data loss" << std::endl;
-		return (0);
+		c = static_cast<char>(d);
+		i = static_cast<int>(d);
+		if (i && (i > CHAR_MAX || i < CHAR_MIN))
+			std::cout << "char   : not possible" << std::endl;
+		else if (isprint(c))
+			std::cout << "char   : " << c << std::endl;
+		else if (!isprint(c))
+			std::cout << "char   : is not printable" << std::endl;
+		std::cout << "int    : " << i << std::endl;
 	}
-	try
-	{
-		i = std::stoi(input, 0, 0);
-	}
-	catch (std::invalid_argument &ia)
-	{
-		if (input.length() != 1)
-		{
-			std::cout << "Cast to int : not possible" << std::endl;
-			std::cout << "Cast to char : not possible" << std::endl;
-			return (0);
-		}
-	}
-	i = static_cast<int>(d);
-	std::cout << "Cast to int = " << i << std::endl;
-	if (i && (i > CHAR_MAX || i < CHAR_MIN))
-	{
-		std::cout << "value is beyond Char_Min/Max converting to smaller value";
-		std::cout << " is not possible without data loss" << std::endl;
-		return (0);
-	}
-	c = static_cast<char>(i);
-	if (isprint(c))
-		std::cout << "Cast to char = " << c << std::endl;
-	else
-		std::cout << "Cast to char = is not printable" << std::endl;
+	std::cout << "float  : " << f << "f" << std::endl;
+	//std::cout << "float  : " << std::stof(input) << std::endl;
+	std::cout << "double : " << d << std::endl;
 	return (0);
 }
